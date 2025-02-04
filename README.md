@@ -694,3 +694,6 @@ Promoção prematura pode ocorrer se Survivor ficar cheio
 
 Este é um exemplo simplificado, mas mostra o ciclo básico de vida dos objetos na heap. 
 ```
+## comperação entre os gcs
+![Captura de tela de 2025-02-04 20-54-30](https://github.com/user-attachments/assets/33be21ed-1935-442e-9787-c2c1ac9db3fb)
+
