@@ -233,7 +233,40 @@ Os forwarding pointers são essenciais para implementar GCs que movem objetos e 
 ## shenandoah
 - desenvolvido pela redhat
 - indicado para reduzir tempos de pausa em heaps grandes
-  
+
+## ZGC
+```
+O ZGC (Z Garbage Collector) é um coletor de lixo de baixa latência desenvolvido pela Oracle para o Java. Vou explicar suas principais características:
+
+1. Design e Objetivos:
+- Projetado para aplicações que requerem baixa latência e trabalham com grandes heaps (terabytes de dados)
+- Visa manter pausas de GC abaixo de 10ms, independente do tamanho do heap
+- Otimizado para sistemas modernos com muita memória e múltiplos núcleos
+
+2. Principais características:
+- Coleta de lixo concorrente, realizando a maior parte do trabalho enquanto a aplicação está em execução
+- Usa load barriers e colored pointers para rastreamento de referências
+- Compactação de memória concorrente para evitar fragmentação
+- Suporte nativo a NUMA (Non-Uniform Memory Access)
+
+3. Vantagens:
+- Pausas extremamente curtas, mesmo com heaps grandes
+- Escala bem com o aumento do tamanho do heap
+- Performance consistente e previsível
+- Bom gerenciamento de memória em sistemas NUMA
+
+4. Quando usar:
+- Aplicações que necessitam de baixa latência
+- Sistemas que trabalham com grandes volumes de dados em memória
+- Microserviços e aplicações cloud-native que precisam de performance consistente
+- Sistemas de tempo real não críticos
+
+Vale notar que o ZGC está disponível como um coletor de lixo totalmente suportado desde o Java 15, embora tenha sido introduzido experimentalmente no Java 11.
+
+O ZGC continua em desenvolvimento ativo, com melhorias sendo adicionadas em cada nova versão do Java. Por exemplo, recentemente foram adicionadas otimizações para melhor desempenho em containers e ambientes virtualizados.
+
+Para utiliza-lo -XX:+UseZGC
+```
 ## G1
 ```
 G1 (Garbage First) é um coletor de lixo moderno da JVM. Vou explicar seus principais aspectos:
