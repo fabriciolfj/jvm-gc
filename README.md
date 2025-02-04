@@ -265,7 +265,7 @@ Vale notar que o ZGC está disponível como um coletor de lixo totalmente suport
 
 O ZGC continua em desenvolvimento ativo, com melhorias sendo adicionadas em cada nova versão do Java. Por exemplo, recentemente foram adicionadas otimizações para melhor desempenho em containers e ambientes virtualizados.
 
-Para utiliza-lo -XX:+UseZGC
+Para utiliza-lo -XX:+UseZGC -XX:+ZGenerational
 ```
 ## G1
 ```
