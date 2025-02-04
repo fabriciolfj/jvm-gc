@@ -694,6 +694,56 @@ Promoção prematura pode ocorrer se Survivor ficar cheio
 
 Este é um exemplo simplificado, mas mostra o ciclo básico de vida dos objetos na heap. 
 ```
+## gc open8j
+```
+O OpenJ9 é um coletor de lixo alternativo desenvolvido inicialmente pela IBM e depois disponibilizado como projeto open source através da Eclipse Foundation. Uma de suas características mais interessantes é o sistema de Arraylets.
+
+Sobre os Arraylets do OpenJ9:
+
+1. Conceito Básico:
+- Arraylets são uma forma especial de representar arrays grandes no heap
+- Em vez de alocar um array grande contíguo, o OpenJ9 divide em pedaços menores chamados "arraylets"
+- Cada arraylet tipicamente tem 2MB de tamanho por padrão
+
+2. Funcionamento:
+- Um array grande é dividido em uma "spine" (espinha) e múltiplos arraylets
+- A spine contém ponteiros para os arraylets individuais
+- Os arraylets são alocados de forma não contígua na memória
+- O acesso aos elementos é feito através de indireção via spine
+
+3. Vantagens:
+- Reduz fragmentação de memória
+- Permite alocação mais eficiente de arrays muito grandes
+- Menor impacto nas pausas do GC
+- Melhor utilização da memória em sistemas NUMA
+- Reduz a necessidade de contiguidade no heap
+
+4. Configuração:
+- Pode ser controlado através de parâmetros como:
+  - `-Xmca`: Define o tamanho máximo de um array contíguo
+  - `-Xmco`: Controla o overhead máximo permitido para arraylets
+  - `-Xmca:size`: Define o tamanho do arraylet
+
+5. Casos de Uso Ideais:
+- Aplicações que manipulam arrays muito grandes
+- Sistemas com restrições de memória contígua
+- Ambientes onde a fragmentação de memória é um problema
+- Aplicações Big Data que precisam de grandes estruturas de dados
+
+6. Comparação com outros GCs:
+- Diferente do ZGC e G1 que focam em regiões
+- Abordagem única para tratamento de arrays grandes
+- Complementa outras estratégias de gerenciamento de memória do OpenJ9
+
+7. Performance:
+- Reduz significativamente o impacto de OutOfMemoryErrors causados por fragmentação
+- Overhead mínimo para acesso a elementos do array
+- Melhor escalabilidade para arrays muito grandes
+- Pode reduzir o tempo total de GC em aplicações com muitos arrays grandes
+
+O sistema de Arraylets é uma das características que torna o OpenJ9 particularmente eficiente em cenários onde há manipulação de grandes estruturas de dados em memória, especialmente em ambientes com restrições de recursos ou necessidade de otimização de memória.
+```
+
 ## comperação entre os gcs
 ![Captura de tela de 2025-02-04 20-54-30](https://github.com/user-attachments/assets/33be21ed-1935-442e-9787-c2c1ac9db3fb)
 
