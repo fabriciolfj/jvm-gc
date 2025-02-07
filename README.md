@@ -811,6 +811,54 @@ Problemas comuns:
 - Fragmentação pode reduzir espaço útil disponível
 - Métodos muito grandes podem não caber no cache
 ```
+- comandos para alterar o tamanho
+```
+-XX:InitialCodeCacheSize=32m
+-XX:ReservedCodeCacheSize=256m
+-XX:CodeCacheExpansionSize=64k
+```
+## dicas para aumentar o desempenho de forma simples
+- primeiro habilite os logs
+```
+-XX:+PrintCompilation      # Log básico de compilação
+-XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation    # Log detalhado em arquivo
+
+java -XX:+PrintCompilation -XX:+UnlockDiagnosticVMOptions -XX:+LogCompilation -XX:+PrintInlining MeuPrograma
+```
+- verifique se os métodos importantes estão sendo compiladas ou executados de forma interpretada.
+- aumente o cache e verifica se o número de métodos compilados e maior
+- importe em uma ferramenta ou interprete
+
+### caso aumentando o cache não aumentou o número de métodos compilados
+```
+Existem algumas razões possíveis para isso acontecer. Vamos analisar passo a passo:
+
+1. Verificar se os métodos são "quentes" o suficiente:
+   - A JVM só compila métodos que são frequentemente executados
+   - Se os métodos não atingirem o threshold de compilação, não serão compilados mesmo com cache maior
+
+2. Checar as configurações de Tiered Compilation:
+
+-XX:+TieredCompilation            # Habilitar/verificar se está ativo
+-XX:CompileThreshold=10000        # Ajustar threshold de compilação
+-XX:Tier4InvocationThreshold=15000 # Threshold para C2
+
+
+3. Verificar se não há descompilação acontecendo:
+
+-XX:+PrintCompilation -XX:+PrintCodeCache    # Para monitorar
+
+
+4. Verificar se os métodos são elegíveis para compilação:
+   - Métodos muito grandes podem ser ignorados
+   - Métodos com muitas exceções também podem ser ignorados
+
+Para diagnosticar melhor, você poderia:
+1. Ativar logs detalhados de compilação
+2. Verificar se não há outros limites sendo atingidos
+3. Monitorar o comportamento em runtime
+
+```
 
 
 ## comperação entre os gcs
