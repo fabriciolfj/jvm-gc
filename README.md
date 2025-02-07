@@ -744,6 +744,75 @@ Sobre os Arraylets do OpenJ9:
 O sistema de Arraylets é uma das características que torna o OpenJ9 particularmente eficiente em cenários onde há manipulação de grandes estruturas de dados em memória, especialmente em ambientes com restrições de recursos ou necessidade de otimização de memória.
 ```
 
+# PGR profile guided recompilation
+```
+O PGR é uma técnica onde o compilador JIT utiliza informações de perfil coletadas durante a execução do programa para tomar decisões mais inteligentes sobre otimizações. Essas informações incluem:
+
+1. Frequência de execução de métodos
+2. Padrões de desvios (branches) mais comuns
+3. Tipos mais frequentes em sites polimórficos
+4. Distribuição de valores
+5. Comportamento de exceções
+
+Com base nesses dados de perfil, o compilador pode:
+- Decidir quais métodos devem ser compilados
+- Realizar otimizações mais agressivas em caminhos críticos
+- Fazer especulações mais precisas sobre tipos e fluxos de execução
+- Determinar quando é benéfico recompilar um método com otimizações diferentes
+```
+
+# compiladores hotspot
+```
+HotSpot JVM possui dois compiladores principais: C1 (Client Compiler) e C2 (Server Compiler). Vou explicar as características de cada um:
+
+C1 (Client Compiler):
+- Também conhecido como Client HotSpot Compiler
+- Otimizado para inicialização rápida e menor consumo de memória
+- Realiza otimizações mais simples e rápidas
+- Ideal para aplicações desktop e programas que precisam iniciar rapidamente
+- Usa menos recursos de memória durante a compilação
+- Gera código nativo mais rapidamente, mas com otimizações menos agressivas
+
+C2 (Server Compiler):
+- Também conhecido como Server HotSpot Compiler ou Opto
+- Foca em maior desempenho a longo prazo
+- Realiza otimizações mais sofisticadas e agressivas
+- Ideal para aplicações server-side que rodam por longos períodos
+- Requer mais memória e tempo durante a compilação
+- Gera código nativo mais otimizado, mas leva mais tempo para compilar
+
+Na JVM moderna, existe o modo "tiered compilation" que usa ambos os compiladores em conjunto:
+1. Primeiro o código começa sendo interpretado
+2. Partes quentes são compiladas pelo C1 para obter ganhos rápidos
+3. Se o código continua muito utilizado, é recompilado pelo C2 para otimizações mais agressivas
+```
+# code cache
+```
+O Code Cache é uma área de memória especial na JVM onde é armazenado o código nativo gerado pelos compiladores JIT (C1 e C2). Veja os principais aspectos:
+
+Características principais:
+- Armazena o código compilado para execução nativa
+- Tem tamanho limitado e configurável
+- Quando fica cheio, pode causar descompilação de métodos
+- É dividido em segmentos para diferentes tipos de código compilado
+
+Segmentação do Code Cache:
+1. Non-method code: Para stubs e adaptadores
+2. Profiled code: Código compilado pelo C1 (nível mais baixo de otimização)
+3. Non-profiled code: Código compilado pelo C2 (maior nível de otimização)
+
+Configurações importantes:
+- InitialCodeCacheSize: Tamanho inicial
+- ReservedCodeCacheSize: Tamanho máximo
+- CodeCacheExpansionSize: Incremento quando precisa crescer
+
+Problemas comuns:
+- Code Cache cheio pode causar degradação de performance
+- Fragmentação pode reduzir espaço útil disponível
+- Métodos muito grandes podem não caber no cache
+```
+
+
 ## comperação entre os gcs
 ![Captura de tela de 2025-02-04 20-54-30](https://github.com/user-attachments/assets/33be21ed-1935-442e-9787-c2c1ac9db3fb)
 
