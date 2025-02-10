@@ -493,7 +493,7 @@ O iHOP é uma das muitas otimizações que a JVM faz automaticamente para melhor
 ## alocação
 - quantidade de memoria utilizada pelo objeto
 
-## tempo de via do objeto
+## tempo de vida do objeto
 - muito dificil de medir ou estimar
 - o tempo de vida (lifecycle) de um objeto é o período entre sua criação (instanciação) e o momento em que ele se torna elegível para coleta pelo Garbage Collector, ou seja, quando não há mais referências alcançáveis a ele.
 ## pico de alocacao
