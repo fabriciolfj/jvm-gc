@@ -859,7 +859,45 @@ Para diagnosticar melhor, você poderia:
 3. Monitorar o comportamento em runtime
 
 ```
+## aot
+```
+O AOT (Ahead-of-Time) Compilation é uma abordagem diferente de compilação que apresenta algumas vantagens e desvantagens em relação ao JIT. Vou explicar os principais aspectos:
 
+Funcionamento do AOT:
+1. O código é compilado para código nativo antes da execução
+2. A compilação acontece durante o processo de build
+3. O resultado é um executável específico para a plataforma alvo
+4. Não requer compilação em tempo de execução
+
+Principais vantagens:
+- Inicialização mais rápida do aplicativo
+- Menor consumo de memória em runtime
+- Previsibilidade de performance
+- Melhor para dispositivos com recursos limitados
+- Ideal para microserviços e aplicações nativas em nuvem
+
+Desvantagens:
+- Binários específicos para cada plataforma
+- Perda de algumas otimizações dinâmicas do JIT
+- Maior tamanho do executável final
+- Menos flexibilidade para otimizações em runtime
+
+No contexto Java:
+- GraalVM Native Image é uma das principais implementações
+- Projeto CRaC (Coordinated Restore at Checkpoint)
+- Spring Native para aplicações Spring Boot
+- Quarkus oferece suporte nativo a AOT
+- OpenJ9 também possui recursos AOT
+
+Casos de uso ideais:
+- Aplicações serverless
+- Microserviços
+- Aplicativos CLI
+- Sistemas embarcados
+- Ambientes com restrições de recursos
+
+O AOT não substitui completamente o JIT - cada um tem seu lugar e caso de uso ideal. Em muitos cenários modernos, especialmente com containers e cloud native, o AOT tem ganhado mais relevância.
+```
 
 ## comperação entre os gcs
 ![Captura de tela de 2025-02-04 20-54-30](https://github.com/user-attachments/assets/33be21ed-1935-442e-9787-c2c1ac9db3fb)
