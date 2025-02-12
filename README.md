@@ -899,6 +899,13 @@ Casos de uso ideais:
 O AOT não substitui completamente o JIT - cada um tem seu lugar e caso de uso ideal. Em muitos cenários modernos, especialmente com containers e cloud native, o AOT tem ganhado mais relevância.
 ```
 
+## dicas para melhorar a performance
+- Usar GC apropriado para seu caso de uso (como G1GC para heaps grandes ou ZGC para baixa latência)
+- Object pooling para objetos frequentemente alocados
+- Evitar criação desnecessária de objetos temporários
+- Monitoramento do GC com ferramentas como JFR (Java Flight Recorder) ou GC logs
+- Ajuste dos parâmetros do GC (-Xmx, -Xms, proporções das gerações, etc)
+
 ## comperação entre os gcs
 ![Captura de tela de 2025-02-04 20-54-30](https://github.com/user-attachments/assets/33be21ed-1935-442e-9787-c2c1ac9db3fb)
 
