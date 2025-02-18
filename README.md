@@ -906,6 +906,7 @@ O AOT não substitui completamente o JIT - cada um tem seu lugar e caso de uso i
 - Monitoramento do GC com ferramentas como JFR (Java Flight Recorder) ou GC logs
 - Ajuste dos parâmetros do GC (-Xmx, -Xms, proporções das gerações, etc)
 - em containers procure configurar para que o mesmo utilize mais de um core, pois deixando apenas 1, a jvm pode optar por gc antigos e defasados, uma vez que os modernos necessitam de mais de um core de cpu.
+     - se a jvm optar pelo serial por exemplo, tempo de pausa do gc e maior, usa-se apenas o stw. (stop the world) 
 
 ## comperação entre os gcs
 ![Captura de tela de 2025-02-04 20-54-30](https://github.com/user-attachments/assets/33be21ed-1935-442e-9787-c2c1ac9db3fb)
