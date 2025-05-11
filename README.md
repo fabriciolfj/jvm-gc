@@ -910,4 +910,5 @@ O AOT não substitui completamente o JIT - cada um tem seu lugar e caso de uso i
 
 ## comperação entre os gcs
 ![Captura de tela de 2025-02-04 20-54-30](https://github.com/user-attachments/assets/33be21ed-1935-442e-9787-c2c1ac9db3fb)
+![image](https://github.com/user-attachments/assets/e4580b73-91bb-4ab9-9817-50fd57593ad6)
 
