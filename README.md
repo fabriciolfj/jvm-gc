@@ -1,3 +1,35 @@
+# compactar o header dos objetos no 
+- para compactar o cabeçalho do objeto armazenado no head java:
+java -XX:+UseCompactObjectHeaders MyApp
+```
+Estrutura na Memória Heap
+No heap, a instância pessoa fica assim:
+[CABEÇALHO DO OBJETO] + [DADOS DOS CAMPOS]
+     8 bytes              campos da classe
+   (antes: 12 bytes)
+Antes (Java 24 e anteriores):
+┌─────────────────┬─────────────────┬──────────────────┐
+│   Palavra de    │   Ponteiro de   │   Dados dos      │
+│   Marcação      │   Classe        │   Campos         │
+│   (8 bytes)     │   (4 bytes)     │   (nome, idade)  │
+└─────────────────┴─────────────────┴──────────────────┘
+     Total: 12 bytes de cabeçalho
+Agora (Java 25 com Cabeçalhos Compactos):
+┌─────────────────┬──────────────────┐
+│   Cabeçalho     │   Dados dos      │
+│   Compactado    │   Campos         │
+│   (8 bytes)     │   (nome, idade)  │
+└─────────────────┴──────────────────┘
+     Total: 8 bytes de cabeçalho
+O que Contém o Cabeçalho
+O cabeçalho armazena metadados essenciais:
+
+Informações de coleta de lixo (idade do objeto)
+Código hash de identidade
+Informações de sincronização/lock
+Ponteiro para metadados da classe
+```
+
 # Detalhes do garbage collection
 - hotspot java, utiliza várias técnicas para melhorar a performance do gc, como: evitar fragmentação, localidade/refrência para busca dos dados e compactuação.
 - alguns comandos que podemos utilizar.
